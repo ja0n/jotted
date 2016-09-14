@@ -6,13 +6,14 @@ import * as util from '../util.js'
 export default class PluginConsole {
   constructor (jotted, options) {
     options = util.extend(options, {
-      autoClear: false
+      autoClear: false,
+      aliases: null,
     })
-
+    var aliases  = options.aliases ? `${options.aliases.join(' = ')} = window.console.log;` : ''
     var priority = 30
     var history = []
     var historyIndex = 0
-    var logCaptureSnippet = `(${this.capture.toString()})();`
+    var logCaptureSnippet = `(${this.capture.toString()})(); ${aliases}`
     var contentCache = {
       html: '',
       css: '',
@@ -66,6 +67,20 @@ export default class PluginConsole {
     // get log events from the iframe
     window.addEventListener('message', this.getMessage.bind(this))
 
+    if (options.onChange) {
+      // pass colleted console messages to onChange callback
+      jotted.done('change', () => {
+        if (!this.lastPool) {
+          this.lastPool = this.pool
+          return
+        }
+
+        this.lastPool = this.pool
+        this.pool = []
+        options.onChange(this.lastPool)
+      })
+    }
+
     // plugin public properties
     this.$jottedContainer = jotted.$container
     this.$container = $container
@@ -75,6 +90,8 @@ export default class PluginConsole {
     this.historyIndex = historyIndex
     this.logCaptureSnippet = logCaptureSnippet
     this.contentCache = contentCache
+    this.pool = []
+    this.lastPool = null
     this.getIframe = this.getIframe.bind(this)
   }
 
@@ -95,6 +112,7 @@ export default class PluginConsole {
 
     if (data.type === 'jotted-console-log') {
       this.log(data.message)
+      this.pool.push(data.message)
     }
   }
 
