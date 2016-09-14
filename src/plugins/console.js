@@ -6,6 +6,7 @@ import * as util from '../util.js'
 export default class PluginConsole {
   constructor (jotted, options) {
     options = util.extend(options, {
+      tabName: 'JS Console',
       autoClear: false,
       aliases: null,
     })
@@ -23,7 +24,7 @@ export default class PluginConsole {
     // new tab and pane markup
     var $nav = document.createElement('li')
     util.addClass($nav, 'jotted-nav-item jotted-nav-item-console')
-    $nav.innerHTML = '<a href="#" data-jotted-type="console">JS Console</a>'
+    $nav.innerHTML = `<a href="#" data-jotted-type="console">${options.tabName}</a>`
 
     var $pane = document.createElement('div')
     util.addClass($pane, 'jotted-pane jotted-pane-console')
