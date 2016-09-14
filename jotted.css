@@ -70,6 +70,11 @@ jotted-nav-item,
 .jotted-has-js .jotted-nav-item-js {
   display: block;
 }
+/* hide result tab
+ */
+.jotted-hide-result .jotted-nav-item-result {
+  display: none;
+}
 /* pane
  */
 .jotted-pane {

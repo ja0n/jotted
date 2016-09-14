@@ -44,6 +44,10 @@ export function hasFileClass (type) {
   return `jotted-has-${type}`
 }
 
+export function hideResultClass () {
+  return `jotted-hide-result`
+}
+
 export function editorClass (type) {
   return `jotted-editor jotted-editor-${type}`
 }

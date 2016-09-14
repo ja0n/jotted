@@ -209,6 +209,10 @@
     return 'jotted-has-' + type;
   }
 
+  function hideResultClass() {
+    return 'jotted-hide-result';
+  }
+
   function editorClass(type) {
     return 'jotted-editor jotted-editor-' + type;
   }
@@ -1829,6 +1833,15 @@
           addClass($container, hasFileClass(type));
         }
       }
+
+      if (options.tabNames) {
+        this.renameTabs(options.tabNames);
+      }
+
+      // hide result tab
+      if (options.hideResultTab) {
+        addClass($container, hideResultClass());
+      }
     }
 
     createClass(Jotted, [{
@@ -2058,6 +2071,15 @@
             cooldown[type] = null;
           }, options.debounce);
         };
+      }
+    }, {
+      key: 'renameTabs',
+      value: function renameTabs(map) {
+        var nav = this.$container.querySelector('.jotted-nav');
+
+        Object.keys(map).forEach(function (key) {
+          (nav.querySelector('a[data-jotted-type="' + key + '"') || {}).innerHTML = map[key];
+        });
       }
     }]);
     return Jotted;

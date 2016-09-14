@@ -111,6 +111,15 @@ class Jotted {
         util.addClass($container, template.hasFileClass(type))
       }
     }
+
+    if (options.tabNames) {
+      this.renameTabs(options.tabNames)
+    }
+
+    // hide result tab
+    if (options.hideResultTab) {
+      util.addClass($container, template.hideResultClass())
+    }
   }
 
   findFile (type) {
@@ -314,6 +323,14 @@ class Jotted {
         cooldown[type] = null
       }, options.debounce)
     }
+  }
+
+  renameTabs (map) {
+    const nav = this.$container.querySelector('.jotted-nav')
+
+    Object.keys(map).forEach(key => {
+      (nav.querySelector(`a[data-jotted-type="${key}"`) || {}).innerHTML = map[key]
+    })
   }
 }
 
