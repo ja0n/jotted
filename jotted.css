@@ -72,7 +72,8 @@ jotted-nav-item,
 }
 /* hide result tab
  */
-.jotted-hide-result .jotted-nav-item-result {
+.jotted-hide-result .jotted-nav-item-result,
+.jotted-hide-result .jotted-pane-result {
   display: none;
 }
 /* pane
@@ -432,6 +433,16 @@ jotted-nav-item,
 .jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-nav-item,
 .jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-pane {
   width: 20%;
+}
+.jotted-theme-bin.flex {
+  display: flex;
+}
+.jotted-theme-bin.flex .jotted-nav {
+  display: flex;
+}
+.jotted-theme-bin.flex .jotted-nav-item,
+.jotted-theme-bin.flex .jotted-pane {
+  flex: 1;
 }
 .jotted-theme-split .jotted-nav {
   display: flex;

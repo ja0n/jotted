@@ -8,9 +8,9 @@ export default class PluginConsole {
     options = util.extend(options, {
       tabName: 'JS Console',
       autoClear: false,
-      aliases: null,
+      aliases: null
     })
-    var aliases  = options.aliases ? `${options.aliases.join(' = ')} = window.console.log;` : ''
+    var aliases = options.aliases ? `${options.aliases.join(' = ')} = window.console.log;` : ''
     var priority = 30
     var history = []
     var historyIndex = 0
