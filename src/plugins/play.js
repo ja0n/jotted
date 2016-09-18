@@ -7,7 +7,8 @@ import * as util from '../util.js'
 export default class PluginPlay {
   constructor (jotted, options) {
     options = util.extend(options, {
-      firstRun: true
+      firstRun: true,
+      buttonText: 'Run'
     })
 
     var priority = 10
@@ -39,7 +40,7 @@ export default class PluginPlay {
     // run button
     var $button = document.createElement('button')
     $button.className = 'jotted-button jotted-button-play'
-    $button.innerHTML = 'Run'
+    $button.innerHTML = options.buttonText
 
     jotted.$container.appendChild($button)
     $button.addEventListener('click', this.run.bind(this))

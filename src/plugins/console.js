@@ -8,6 +8,7 @@ export default class PluginConsole {
     options = util.extend(options, {
       tabName: 'JS Console',
       autoClear: false,
+      clearText: 'Clear',
       aliases: null
     })
     var aliases = options.aliases ? `${options.aliases.join(' = ')} = window.console.log;` : ''
@@ -36,7 +37,7 @@ export default class PluginConsole {
           <input type="text">
         </form>
       </div>
-      <button class="jotted-button jotted-console-clear">Clear</button>
+      <button class="jotted-button jotted-console-clear">${options.clearText}</button>
     `
 
     jotted.$container.appendChild($pane)
