@@ -507,7 +507,7 @@
       }
 
       Plugin = find$1(pluginName);
-      _this._get('plugins')[plugin] = new Plugin(_this, pluginOptions);
+      _this._get('plugins')[pluginName] = new Plugin(_this, pluginOptions);
 
       addClass(_this._get('$container'), pluginClass(pluginName));
     });
@@ -1814,7 +1814,7 @@
       this.paneActive = this._get('paneActive');
 
       // init plugins
-      this._set('plugins', {});
+      this.plugins = this._set('plugins', {});
       init.call(this);
 
       // load files

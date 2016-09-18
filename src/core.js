@@ -97,7 +97,7 @@ class Jotted {
     this.paneActive = this._get('paneActive')
 
     // init plugins
-    this._set('plugins', {})
+    this.plugins = this._set('plugins', {})
     plugin.init.call(this)
 
     // load files
