@@ -28,6 +28,7 @@ export default class PluginRender {
     jotted.on('change', this.change.bind(this), 100)
 
     // public
+    this.jotted = jotted
     this.supportSrcdoc = supportSrcdoc
     this.content = content
     this.frameContent = frameContent
@@ -126,6 +127,8 @@ export default class PluginRender {
         this.$resultFrame.contentWindow.location = jsUrl
       }
     }
+
+    this.jotted.trigger('render', this.frameContent)
   }
 
   domready (e) {
