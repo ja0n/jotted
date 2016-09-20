@@ -25,6 +25,15 @@ export default class PubSoup {
     })
   }
 
+  subscribeOnce (topic, subscriber, priority = 90) {
+    const pack = () => {
+      subscriber(arguments)
+      this.unsubscribe(topic, pack)
+    }
+
+    this.subscribe(topic, pack, priority)
+  }
+
   // removes a function from an array
   remover (arr, fn) {
     arr.forEach(function () {

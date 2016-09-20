@@ -54,6 +54,9 @@ class Jotted {
     this._set('on', function () {
       pubsoup.subscribe.apply(pubsoup, arguments)
     })
+    this._set('once', function () {
+      pubsoup.subscribeOnce.apply(pubsoup, arguments)
+    })
     this._set('off', function () {
       pubsoup.unsubscribe.apply(pubsoup, arguments)
     })
@@ -91,6 +94,7 @@ class Jotted {
     // expose public properties
     this.$container = this._get('$container')
     this.on = this._get('on')
+    this.once = this._get('once')
     this.off = this._get('off')
     this.done = this._get('done')
     this.trigger = this._get('trigger')
