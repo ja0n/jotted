@@ -124,6 +124,12 @@ class Jotted {
     if (options.hideResultTab) {
       util.addClass($container, template.hideResultClass())
     }
+
+    this.on('change', (params, callback) => {
+      this._get('cachedContent')[params.type] = params.content
+
+      callback(null, params)
+    }, 10)
   }
 
   findFile (type) {

@@ -1721,6 +1721,8 @@
 
   var Jotted = function () {
     function Jotted($jottedContainer, opts) {
+      var _this = this;
+
       classCallCheck(this, Jotted);
 
       if (!$jottedContainer) {
@@ -1842,6 +1844,12 @@
       if (options.hideResultTab) {
         addClass($container, hideResultClass());
       }
+
+      this.on('change', function (params, callback) {
+        _this._get('cachedContent')[params.type] = params.content;
+
+        callback(null, params);
+      }, 10);
     }
 
     createClass(Jotted, [{
@@ -1885,7 +1893,7 @@
     }, {
       key: 'load',
       value: function load(type) {
-        var _this = this;
+        var _this2 = this;
 
         // create the markup for an editor
         var file = this.findFile(type);
@@ -1905,7 +1913,7 @@
           fetch(file.url, function (err, res) {
             if (err) {
               // show load errors
-              _this.status('error', [statusFetchError(err)], {
+              _this2.status('error', [statusFetchError(err)], {
                 type: type
               });
 
@@ -1913,11 +1921,11 @@
             }
 
             // clear the loading status
-            _this.clearStatus('loading', {
+            _this2.clearStatus('loading', {
               type: type
             });
 
-            _this.setValue($textarea, res);
+            _this2.setValue($textarea, res);
           });
         } else {
           // trigger a change event on blank editors,
