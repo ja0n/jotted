@@ -213,6 +213,10 @@ class Jotted {
     })
   }
 
+  getValue (type) {
+    return this._get('cachedContent')[type]
+  }
+
   change (e) {
     var type = util.data(e.target, 'jotted-type')
     if (!type) {

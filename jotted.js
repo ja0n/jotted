@@ -1938,6 +1938,11 @@
         });
       }
     }, {
+      key: 'getValue',
+      value: function getValue(type) {
+        return this._get('cachedContent')[type];
+      }
+    }, {
       key: 'change',
       value: function change(e) {
         var type = data(e.target, 'jotted-type');
