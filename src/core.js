@@ -223,6 +223,11 @@ class Jotted {
     return this._get('cachedContent')[type]
   }
 
+  updateValue (type, content) {
+    this._get('cachedContent')[type] = content
+    this.trigger('change', { type, content })
+  }
+
   change (e) {
     var type = util.data(e.target, 'jotted-type')
     if (!type) {

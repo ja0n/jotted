@@ -1951,6 +1951,12 @@
         return this._get('cachedContent')[type];
       }
     }, {
+      key: 'updateValue',
+      value: function updateValue(type, content) {
+        this._get('cachedContent')[type] = content;
+        this.trigger('change', { type: type, content: content });
+      }
+    }, {
       key: 'change',
       value: function change(e) {
         var type = data(e.target, 'jotted-type');
