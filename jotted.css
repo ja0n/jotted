@@ -2,7 +2,8 @@
  */
 .jotted {
   position: relative;
-  height: 12em;
+  height: 14em;
+  width: 100%;
   overflow: hidden;
   border: 1px solid rgba(51,51,51,0.24);
   border-radius: 2px;
@@ -378,9 +379,9 @@ jotted-nav-item,
   border: 0;
 }
 .jotted-theme-bin .jotted-pane-result,
-.jotted-theme-bin.jotted-has-html .jotted-pane-html,
-.jotted-theme-bin.jotted-has-css .jotted-pane-css,
-.jotted-theme-bin.jotted-has-js .jotted-pane-js {
+.jotted-theme-bin .jotted-has-html .jotted-pane-html,
+.jotted-theme-bin .jotted-has-css .jotted-pane-css,
+.jotted-theme-bin .jotted-has-js .jotted-pane-js {
   position: relative;
   float: left;
   visibility: visible;
@@ -389,24 +390,24 @@ jotted-nav-item,
 .jotted-theme-bin .jotted-nav-item {
   width: 100%;
 }
-.jotted-theme-bin.jotted-has-html .jotted-nav-item,
-.jotted-theme-bin.jotted-has-css .jotted-nav-item,
-.jotted-theme-bin.jotted-has-js .jotted-nav-item,
-.jotted-theme-bin.jotted-has-html .jotted-pane,
-.jotted-theme-bin.jotted-has-css .jotted-pane,
-.jotted-theme-bin.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-has-html .jotted-nav-item,
+.jotted-theme-bin .jotted-has-css .jotted-nav-item,
+.jotted-theme-bin .jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-has-html .jotted-pane,
+.jotted-theme-bin .jotted-has-css .jotted-pane,
+.jotted-theme-bin .jotted-has-js .jotted-pane {
   width: 50%;
 }
-.jotted-theme-bin.jotted-has-html.jotted-has-css .jotted-nav-item,
-.jotted-theme-bin.jotted-has-html.jotted-has-js .jotted-nav-item,
-.jotted-theme-bin.jotted-has-css.jotted-has-js .jotted-nav-item,
-.jotted-theme-bin.jotted-has-html.jotted-has-css .jotted-pane,
-.jotted-theme-bin.jotted-has-html.jotted-has-js .jotted-pane,
-.jotted-theme-bin.jotted-has-css.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-has-html.jotted-has-css .jotted-nav-item,
+.jotted-theme-bin .jotted-has-html.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-has-css.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-has-html.jotted-has-css .jotted-pane,
+.jotted-theme-bin .jotted-has-html.jotted-has-js .jotted-pane,
+.jotted-theme-bin .jotted-has-css.jotted-has-js .jotted-pane {
   width: 33.33%;
 }
-.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-nav-item,
-.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-has-html.jotted-has-css.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-has-html.jotted-has-css.jotted-has-js .jotted-pane {
   width: 25%;
 }
 .jotted-theme-bin .jotted-pane-console {
@@ -414,27 +415,30 @@ jotted-nav-item,
   float: left;
   visibility: visible;
 }
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-css .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-js .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html .jotted-pane,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-css .jotted-pane,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-css .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html .jotted-pane,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-css .jotted-pane,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-js .jotted-pane {
   width: 33.33%;
 }
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-js .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-css.jotted-has-js .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css .jotted-pane,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-js .jotted-pane,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-css.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html.jotted-has-css .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-css.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html.jotted-has-css .jotted-pane,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html.jotted-has-js .jotted-pane,
+.jotted-theme-bin .jotted-plugin-console.jotted-has-css.jotted-has-js .jotted-pane {
   width: 25%;
 }
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-nav-item,
-.jotted-plugin-console.jotted-theme-bin.jotted-has-html.jotted-has-css.jotted-has-js .jotted-pane {
+.jotted-theme-bin .jotted-plugin-console.jotted-has-html.jotted-has-css.jotted-has-js .jotted-nav-item,
+.jotted-theme-bin.jotted-plugin-console.jotted-has-html.jotted-has-css.jotted-has-js .jotted-pane {
   width: 20%;
 }
 .jotted-theme-bin.flex {
+  display: flex;
+}
+.jotted-theme-bin.flex .jotted {
   display: flex;
 }
 .jotted-theme-bin.flex .jotted-nav {

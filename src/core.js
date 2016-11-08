@@ -7,10 +7,13 @@ import * as plugin from './plugin.js'
 import PubSoup from './pubsoup.js'
 
 class Jotted {
-  constructor ($jottedContainer, opts) {
-    if (!$jottedContainer) {
+  constructor (container, opts) {
+    if (!container) {
       throw new Error('Can\'t find Jotted container.')
     }
+
+    const $jottedContainer = document.createElement('div')
+    container.appendChild($jottedContainer)
 
     // private data
     var _private = {}
@@ -136,12 +139,13 @@ class Jotted {
     for (let name in this.plugins) {
       const plugin = this.plugins[name]
 
-      if (typeof(plugin.destroy) == 'function')
+      if (typeof plugin.destroy === 'function') {
         plugin.destroy()
+      }
     }
 
     this._get('pubsoup').unsubscribeAll()
-    this.$container.parentNode.replaceChild(document.createElement('div'), this.$container)
+    this.$container.parentNode.removeChild(this.$container)
   }
 
   findFile (type) {
