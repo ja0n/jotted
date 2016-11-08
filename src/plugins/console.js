@@ -66,9 +66,6 @@ export default class PluginConsole {
     // capture the console on each change
     jotted.on('change', this.change.bind(this), priority)
 
-    // get log events from the iframe
-    window.addEventListener('message', this.getMessage.bind(this))
-
     if (options.onChange) {
       // pass colleted console messages to onChange callback
       jotted.done('change', () => {
@@ -95,6 +92,14 @@ export default class PluginConsole {
     this.pool = []
     this.lastPool = null
     this.getIframe = this.getIframe.bind(this)
+    this.onMessage = e => this.getMessage(e)
+
+    // get log events from the iframe
+    window.addEventListener('message', this.onMessage)
+  }
+
+  destroy () {
+    window.removeEventListener('message', this.onMessage)
   }
 
   getIframe () {

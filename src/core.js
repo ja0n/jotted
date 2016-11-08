@@ -132,6 +132,18 @@ class Jotted {
     }, 10)
   }
 
+  destroy () {
+    for (let name in this.plugins) {
+      const plugin = this.plugins[name]
+
+      if (typeof(plugin.destroy) == 'function')
+        plugin.destroy()
+    }
+
+    this._get('pubsoup').unsubscribeAll()
+    this.$container.parentNode.removeChild(this.$container)
+  }
+
   findFile (type) {
     var file = {}
     var options = this._get('options')

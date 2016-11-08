@@ -21,23 +21,28 @@ export default class PluginRender {
       js: ''
     }
 
-    // catch domready events from the iframe
-    window.addEventListener('message', this.domready.bind(this))
-
-    // render on each change
-    jotted.on('change', this.change.bind(this), 100)
-
     // public
     this.jotted = jotted
     this.supportSrcdoc = supportSrcdoc
     this.content = content
     this.frameContent = frameContent
     this.$resultFrame = $resultFrame
+    this.onMessage = e => this.domready(e)
 
     this.callbacks = []
     this.index = 0
 
     this.lastCallback = () => {}
+
+    // catch domready events from the iframe
+    window.addEventListener('message', this.onMessage)
+
+    // render on each change
+    jotted.on('change', this.change.bind(this), 100)
+  }
+
+  destroy () {
+    window.removeEventListener('message', this.onMessage)
   }
 
   template (style = '', body = '', script = '') {

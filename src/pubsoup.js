@@ -66,6 +66,12 @@ export default class PubSoup {
     this.remover(this.callbacks[topic], subscriber)
   }
 
+  unsubscribeAll () {
+    Object.keys(this.topics).forEach(
+      topic => this.unsubscribe(topic)
+    )
+  }
+
   // sequentially runs a method on all plugins
   publish (topic, params = {}) {
     var foundTopic = this.find(topic)
