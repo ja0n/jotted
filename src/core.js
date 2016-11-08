@@ -240,6 +240,10 @@ class Jotted {
     this.trigger('change', { type, content })
   }
 
+  loadFiles (files = []) {
+    files.forEach(({ type, content }) => this.updateValue(type, content))
+  }
+
   change (e) {
     var type = util.data(e.target, 'jotted-type')
     if (!type) {
