@@ -141,7 +141,7 @@ class Jotted {
     }
 
     this._get('pubsoup').unsubscribeAll()
-    this.$container.parentNode.removeChild(this.$container)
+    this.$container.parentNode.replaceChild(document.createElement('div'), this.$container)
   }
 
   findFile (type) {
