@@ -26,17 +26,20 @@ class Jotted {
     }
 
     // options
-    var options = this._set('options', util.extend(opts, {
+    var options = this._set('options', {
       files: [],
       showBlank: false,
       runScripts: true,
       pane: 'result',
       debounce: 250,
-      plugins: []
-    }))
+      plugins: [],
+      ...opts
+    })
 
     // the render plugin is mandatory
-    options.plugins.push('render')
+    if (options.plugins.indexOf('render') === -1) {
+      options.plugins = options.plugins.concat('render')
+    }
 
     // use the scriptless plugin if runScripts is false
     if (options.runScripts === false) {
