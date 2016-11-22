@@ -242,7 +242,8 @@ export default class PluginConsole {
     e.preventDefault()
   }
 
-  clear () {
+  clear (e) {
+    if (e) e.preventDefault()
     this.$output.innerHTML = ''
   }
 

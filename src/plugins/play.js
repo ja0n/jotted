@@ -73,7 +73,8 @@ export default class PluginPlay {
     }
   }
 
-  run () {
+  run (e) {
+    if (e) e.preventDefault()
     // trigger change on each type with the latest code
     for (let type in this.code) {
       this.cache[type] = util.extend(this.code[type], {
