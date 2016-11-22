@@ -460,25 +460,25 @@ jotted-nav-item,
 .jotted-theme-split .jotted-pane-result {
   border-left: 1px solid rgba(51,51,51,0.24);
 }
+.jotted-theme-split .jotted-pane-active-html .jotted-pane-html,
+.jotted-theme-split .jotted-pane-active-css .jotted-pane-css,
+.jotted-theme-split .jotted-pane-active-js .jotted-pane-js {
+  display: block !important;
+}
 .jotted-theme-split .jotted-pane-html,
 .jotted-theme-split .jotted-pane-css,
 .jotted-theme-split .jotted-pane-js {
   display: none;
 }
-.jotted-theme-split.jotted-pane-active-html .jotted-nav-item-html:nth-child(2),
-.jotted-theme-split.jotted-pane-active-css .jotted-nav-item-css:nth-child(2),
-.jotted-theme-split.jotted-pane-active-js .jotted-nav-item-js:nth-child(2) {
+.jotted-theme-split .jotted-pane-active-html .jotted-nav-item-html:nth-child(2),
+.jotted-theme-split .jotted-pane-active-css .jotted-nav-item-css:nth-child(2),
+.jotted-theme-split .jotted-pane-active-js .jotted-nav-item-js:nth-child(2) {
   border-left: none;
 }
-.jotted-theme-split.jotted-pane-active-html .jotted-nav-item-html:last-child,
-.jotted-theme-split.jotted-pane-active-css .jotted-nav-item-css:last-child,
-.jotted-theme-split.jotted-pane-active-js .jotted-nav-item-js:last-child {
+.jotted-theme-split .jotted-pane-active-html .jotted-nav-item-html:last-child,
+.jotted-theme-split .jotted-pane-active-css .jotted-nav-item-css:last-child,
+.jotted-theme-split .jotted-pane-active-js .jotted-nav-item-js:last-child {
   border-right: none;
-}
-.jotted-theme-split.jotted-pane-active-html .jotted-pane-html,
-.jotted-theme-split.jotted-pane-active-css .jotted-pane-css,
-.jotted-theme-split.jotted-pane-active-js .jotted-pane-js {
-  display: block;
 }
 .jotted-theme-split .jotted-nav-item {
   flex: 1;
