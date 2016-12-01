@@ -20,13 +20,14 @@
   .jotted-pane-active-html .jotted-pane-html,
   .jotted-pane-active-css .jotted-pane-css,
   .jotted-pane-active-js .jotted-pane-js {
-    display: block !important;
+    visibility: visible;
   }
 
   .jotted-pane-html,
   .jotted-pane-css,
   .jotted-pane-js {
-    display: none;
+    position: absolute;
+    visibility: hidden;
   }
 
   .jotted-pane-active-html .jotted-nav-item-html,

@@ -463,12 +463,13 @@ jotted-nav-item,
 .jotted-theme-split .jotted-pane-active-html .jotted-pane-html,
 .jotted-theme-split .jotted-pane-active-css .jotted-pane-css,
 .jotted-theme-split .jotted-pane-active-js .jotted-pane-js {
-  display: block !important;
+  visibility: visible;
 }
 .jotted-theme-split .jotted-pane-html,
 .jotted-theme-split .jotted-pane-css,
 .jotted-theme-split .jotted-pane-js {
-  display: none;
+  position: absolute;
+  visibility: hidden;
 }
 .jotted-theme-split .jotted-pane-active-html .jotted-nav-item-html:nth-child(2),
 .jotted-theme-split .jotted-pane-active-css .jotted-nav-item-css:nth-child(2),
