@@ -1845,11 +1845,12 @@
         addClass($container, hideResultClass());
       }
 
+      var priority = 5;
       this.on('change', function (params, callback) {
         _this._get('cachedContent')[params.type] = params.content;
 
         callback(null, params);
-      }, 10);
+      }, priority);
     }
 
     createClass(Jotted, [{

@@ -131,11 +131,12 @@ class Jotted {
       util.addClass($container, template.hideResultClass())
     }
 
+    var priority = 5
     this.on('change', (params, callback) => {
       this._get('cachedContent')[params.type] = params.content
 
       callback(null, params)
-    }, 10)
+    }, priority)
   }
 
   destroy () {
