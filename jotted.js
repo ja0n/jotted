@@ -8,8 +8,8 @@
    */
 
   function extend() {
-    var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var defaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var obj = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var defaults = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
     var extended = {};
     // clone object
@@ -70,7 +70,7 @@
   }
 
   function seq(arr, params) {
-    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+    var callback = arguments.length <= 2 || arguments[2] === undefined ? function () {} : arguments[2];
 
     var errors = [];
 
@@ -166,9 +166,9 @@
   };
 
   function getMode() {
-    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    var file = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-    var customModemap = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var type = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+    var file = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+    var customModemap = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
     var modemap = extend(customModemap, defaultModemap);
 
@@ -218,7 +218,7 @@
   }
 
   function editorContent(type) {
-    var fileUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var fileUrl = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
 
     return '\n    <textarea data-jotted-type="' + type + '" data-jotted-file="' + fileUrl + '"></textarea>\n    <div class="jotted-status"></div>\n  ';
   }
@@ -250,125 +250,8 @@
   var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
   };
-
-
-
-
-
-  var asyncGenerator = function () {
-    function AwaitValue(value) {
-      this.value = value;
-    }
-
-    function AsyncGenerator(gen) {
-      var front, back;
-
-      function send(key, arg) {
-        return new Promise(function (resolve, reject) {
-          var request = {
-            key: key,
-            arg: arg,
-            resolve: resolve,
-            reject: reject,
-            next: null
-          };
-
-          if (back) {
-            back = back.next = request;
-          } else {
-            front = back = request;
-            resume(key, arg);
-          }
-        });
-      }
-
-      function resume(key, arg) {
-        try {
-          var result = gen[key](arg);
-          var value = result.value;
-
-          if (value instanceof AwaitValue) {
-            Promise.resolve(value.value).then(function (arg) {
-              resume("next", arg);
-            }, function (arg) {
-              resume("throw", arg);
-            });
-          } else {
-            settle(result.done ? "return" : "normal", result.value);
-          }
-        } catch (err) {
-          settle("throw", err);
-        }
-      }
-
-      function settle(type, value) {
-        switch (type) {
-          case "return":
-            front.resolve({
-              value: value,
-              done: true
-            });
-            break;
-
-          case "throw":
-            front.reject(value);
-            break;
-
-          default:
-            front.resolve({
-              value: value,
-              done: false
-            });
-            break;
-        }
-
-        front = front.next;
-
-        if (front) {
-          resume(front.key, front.arg);
-        } else {
-          back = null;
-        }
-      }
-
-      this._invoke = send;
-
-      if (typeof gen.return !== "function") {
-        this.return = undefined;
-      }
-    }
-
-    if (typeof Symbol === "function" && Symbol.asyncIterator) {
-      AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-        return this;
-      };
-    }
-
-    AsyncGenerator.prototype.next = function (arg) {
-      return this._invoke("next", arg);
-    };
-
-    AsyncGenerator.prototype.throw = function (arg) {
-      return this._invoke("throw", arg);
-    };
-
-    AsyncGenerator.prototype.return = function (arg) {
-      return this._invoke("return", arg);
-    };
-
-    return {
-      wrap: function (fn) {
-        return function () {
-          return new AsyncGenerator(fn.apply(this, arguments));
-        };
-      },
-      await: function (value) {
-        return new AwaitValue(value);
-      }
-    };
-  }();
 
 
 
@@ -404,30 +287,21 @@
 
 
 
-  var get = function get(object, property, receiver) {
-    if (object === null) object = Function.prototype;
-    var desc = Object.getOwnPropertyDescriptor(object, property);
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
-    if (desc === undefined) {
-      var parent = Object.getPrototypeOf(object);
-
-      if (parent === null) {
-        return undefined;
-      } else {
-        return get(parent, property, receiver);
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
       }
-    } else if ("value" in desc) {
-      return desc.value;
-    } else {
-      var getter = desc.get;
-
-      if (getter === undefined) {
-        return undefined;
-      }
-
-      return getter.call(receiver);
     }
+
+    return target;
   };
+
+
 
 
 
@@ -533,7 +407,7 @@
     }, {
       key: 'subscribe',
       value: function subscribe(topic, subscriber) {
-        var priority = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 90;
+        var priority = arguments.length <= 2 || arguments[2] === undefined ? 90 : arguments[2];
 
         var foundTopic = this.find(topic);
         subscriber._priority = priority;
@@ -543,6 +417,21 @@
         foundTopic.sort(function (a, b) {
           return a._priority > b._priority ? 1 : b._priority > a._priority ? -1 : 0;
         });
+      }
+    }, {
+      key: 'subscribeOnce',
+      value: function subscribeOnce(topic, subscriber) {
+        var _arguments = arguments,
+            _this = this;
+
+        var priority = arguments.length <= 2 || arguments[2] === undefined ? 90 : arguments[2];
+
+        var pack = function pack() {
+          subscriber(_arguments);
+          _this.unsubscribe(topic, pack);
+        };
+
+        this.subscribe(topic, pack, priority);
       }
 
       // removes a function from an array
@@ -580,13 +469,22 @@
         this.callbacks[topic] = this.callbacks[topic] || [];
         this.remover(this.callbacks[topic], subscriber);
       }
+    }, {
+      key: 'unsubscribeAll',
+      value: function unsubscribeAll() {
+        var _this2 = this;
+
+        Object.keys(this.topics).forEach(function (topic) {
+          return _this2.unsubscribe(topic);
+        });
+      }
 
       // sequentially runs a method on all plugins
 
     }, {
       key: 'publish',
       value: function publish(topic) {
-        var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        var params = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
         var foundTopic = this.find(topic);
         var runList = [];
@@ -603,12 +501,12 @@
     }, {
       key: 'runCallbacks',
       value: function runCallbacks(topic) {
-        var _this = this;
+        var _this3 = this;
 
         return function (err, params) {
-          _this.callbacks[topic] = _this.callbacks[topic] || [];
+          _this3.callbacks[topic] = _this3.callbacks[topic] || [];
 
-          _this.callbacks[topic].forEach(function (c) {
+          _this3.callbacks[topic].forEach(function (c) {
             c(err, params);
           });
         };
@@ -619,7 +517,7 @@
     }, {
       key: 'done',
       value: function done(topic) {
-        var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+        var callback = arguments.length <= 1 || arguments[1] === undefined ? function () {} : arguments[1];
 
         this.callbacks[topic] = this.callbacks[topic] || [];
         this.callbacks[topic].push(callback);
@@ -634,6 +532,8 @@
 
   var PluginRender = function () {
     function PluginRender(jotted, options) {
+      var _this = this;
+
       classCallCheck(this, PluginRender);
 
       options = extend(options, {});
@@ -651,37 +551,46 @@
         js: ''
       };
 
-      // catch domready events from the iframe
-      window.addEventListener('message', this.domready.bind(this));
-
-      // render on each change
-      jotted.on('change', this.change.bind(this), 100);
-
       // public
+      this.jotted = jotted;
       this.supportSrcdoc = supportSrcdoc;
       this.content = content;
       this.frameContent = frameContent;
       this.$resultFrame = $resultFrame;
+      this.onMessage = function (e) {
+        return _this.domready(e);
+      };
 
       this.callbacks = [];
       this.index = 0;
 
       this.lastCallback = function () {};
+
+      // catch domready events from the iframe
+      window.addEventListener('message', this.onMessage);
+
+      // render on each change
+      jotted.on('change', this.change.bind(this), 100);
     }
 
     createClass(PluginRender, [{
+      key: 'destroy',
+      value: function destroy() {
+        window.removeEventListener('message', this.onMessage);
+      }
+    }, {
       key: 'template',
       value: function template() {
-        var style = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-        var body = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-        var script = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+        var style = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+        var body = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+        var script = arguments.length <= 2 || arguments[2] === undefined ? '' : arguments[2];
 
         return '\n      <!doctype html>\n      <html>\n        <head>\n          <script>\n            (function () {\n              window.addEventListener(\'DOMContentLoaded\', function () {\n                window.parent.postMessage(JSON.stringify({\n                  type: \'jotted-dom-ready\'\n                }), \'*\')\n              })\n            }())\n          </script>\n\n          <style>' + style + '</style>\n        </head>\n        <body>\n          ' + body + '\n\n          <!--\n            Jotted:\n            Empty script tag prevents malformed HTML from breaking the next script.\n          -->\n          <script></script>\n          <script>' + script + '</script>\n        </body>\n      </html>\n    ';
       }
     }, {
       key: 'change',
       value: function change(params, callback) {
-        var _this = this;
+        var _this2 = this;
 
         // cache manipulated content
         this.content[params.type] = params.content;
@@ -693,7 +602,7 @@
         // cache the current callback as global,
         // so we can call it from the message callback.
         this.lastCallback = function () {
-          _this.lastCallback = function () {};
+          _this2.lastCallback = function () {};
 
           callback(null, params);
         };
@@ -738,6 +647,8 @@
             this.$resultFrame.contentWindow.location = jsUrl;
           }
         }
+
+        this.jotted.trigger('render', this.frameContent);
       }
     }, {
       key: 'domready',
@@ -1231,16 +1142,21 @@
 
   var PluginConsole = function () {
     function PluginConsole(jotted, options) {
+      var _this = this;
+
       classCallCheck(this, PluginConsole);
 
       options = extend(options, {
-        autoClear: false
+        tabName: 'JS Console',
+        autoClear: false,
+        clearText: 'Clear',
+        aliases: null
       });
-
+      var aliases = options.aliases ? options.aliases.join(' = ') + ' = window.console.log;' : '';
       var priority = 30;
       var history = [];
       var historyIndex = 0;
-      var logCaptureSnippet = '(' + this.capture.toString() + ')();';
+      var logCaptureSnippet = '(' + this.capture.toString() + ')(); ' + aliases;
       var contentCache = {
         html: '',
         css: '',
@@ -1250,12 +1166,12 @@
       // new tab and pane markup
       var $nav = document.createElement('li');
       addClass($nav, 'jotted-nav-item jotted-nav-item-console');
-      $nav.innerHTML = '<a href="#" data-jotted-type="console">JS Console</a>';
+      $nav.innerHTML = '<a href="#" data-jotted-type="console">' + options.tabName + '</a>';
 
       var $pane = document.createElement('div');
       addClass($pane, 'jotted-pane jotted-pane-console');
 
-      $pane.innerHTML = '\n      <div class="jotted-console-container">\n        <ul class="jotted-console-output"></ul>\n        <form class="jotted-console-input">\n          <input type="text">\n        </form>\n      </div>\n      <button class="jotted-button jotted-console-clear">Clear</button>\n    ';
+      $pane.innerHTML = '\n      <div class="jotted-console-container">\n        <ul class="jotted-console-output"></ul>\n        <form class="jotted-console-input">\n          <input type="text">\n        </form>\n      </div>\n      <button class="jotted-button jotted-console-clear">' + options.clearText + '</button>\n    ';
 
       jotted.$container.appendChild($pane);
       jotted.$container.querySelector('.jotted-nav').appendChild($nav);
@@ -1283,8 +1199,19 @@
       // capture the console on each change
       jotted.on('change', this.change.bind(this), priority);
 
-      // get log events from the iframe
-      window.addEventListener('message', this.getMessage.bind(this));
+      if (options.onChange) {
+        // pass colleted console messages to onChange callback
+        jotted.done('change', function () {
+          if (!_this.lastPool) {
+            _this.lastPool = _this.pool;
+            return;
+          }
+
+          _this.lastPool = _this.pool;
+          _this.pool = [];
+          options.onChange(_this.lastPool);
+        });
+      }
 
       // plugin public properties
       this.$jottedContainer = jotted.$container;
@@ -1295,10 +1222,23 @@
       this.historyIndex = historyIndex;
       this.logCaptureSnippet = logCaptureSnippet;
       this.contentCache = contentCache;
+      this.pool = [];
+      this.lastPool = null;
       this.getIframe = this.getIframe.bind(this);
+      this.onMessage = function (e) {
+        return _this.getMessage(e);
+      };
+
+      // get log events from the iframe
+      window.addEventListener('message', this.onMessage);
     }
 
     createClass(PluginConsole, [{
+      key: 'destroy',
+      value: function destroy() {
+        window.removeEventListener('message', this.onMessage);
+      }
+    }, {
       key: 'getIframe',
       value: function getIframe() {
         return this.$jottedContainer.querySelector('.jotted-pane-result iframe');
@@ -1318,6 +1258,7 @@
 
         if (data$$1.type === 'jotted-console-log') {
           this.log(data$$1.message);
+          this.pool.push(data$$1.message);
         }
       }
     }, {
@@ -1394,7 +1335,7 @@
     }, {
       key: 'log',
       value: function log() {
-        var message = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+        var message = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
         var type = arguments[1];
 
         var $log = document.createElement('li');
@@ -1451,7 +1392,8 @@
       }
     }, {
       key: 'clear',
-      value: function clear() {
+      value: function clear(e) {
+        if (e) e.preventDefault();
         this.$output.innerHTML = '';
       }
     }, {
@@ -1494,7 +1436,8 @@
       classCallCheck(this, PluginPlay);
 
       options = extend(options, {
-        firstRun: true
+        firstRun: true,
+        buttonText: 'Run'
       });
 
       var priority = 10;
@@ -1526,7 +1469,7 @@
       // run button
       var $button = document.createElement('button');
       $button.className = 'jotted-button jotted-button-play';
-      $button.innerHTML = 'Run';
+      $button.innerHTML = options.buttonText;
 
       jotted.$container.appendChild($button);
       $button.addEventListener('click', this.run.bind(this));
@@ -1562,7 +1505,8 @@
       }
     }, {
       key: 'run',
-      value: function run() {
+      value: function run(e) {
+        if (e) e.preventDefault();
         // trigger change on each type with the latest code
         for (var type in this.code) {
           this.cache[type] = extend(this.code[type], {
@@ -1720,14 +1664,17 @@
    */
 
   var Jotted = function () {
-    function Jotted($jottedContainer, opts) {
+    function Jotted(container$$1, opts) {
       var _this = this;
 
       classCallCheck(this, Jotted);
 
-      if (!$jottedContainer) {
+      if (!container$$1) {
         throw new Error('Can\'t find Jotted container.');
       }
+
+      var $jottedContainer = document.createElement('div');
+      container$$1.appendChild($jottedContainer);
 
       // private data
       var _private = {};
@@ -1740,17 +1687,19 @@
       };
 
       // options
-      var options = this._set('options', extend(opts, {
+      var options = this._set('options', _extends({
         files: [],
         showBlank: false,
         runScripts: true,
         pane: 'result',
         debounce: 250,
         plugins: []
-      }));
+      }, opts));
 
       // the render plugin is mandatory
-      options.plugins.push('render');
+      if (options.plugins.indexOf('render') === -1) {
+        options.plugins = options.plugins.concat('render');
+      }
 
       // use the scriptless plugin if runScripts is false
       if (options.runScripts === false) {
@@ -1770,6 +1719,9 @@
       this._set('trigger', this.trigger());
       this._set('on', function () {
         pubsoup.subscribe.apply(pubsoup, arguments);
+      });
+      this._set('once', function () {
+        pubsoup.subscribeOnce.apply(pubsoup, arguments);
       });
       this._set('off', function () {
         pubsoup.unsubscribe.apply(pubsoup, arguments);
@@ -1810,6 +1762,7 @@
       // expose public properties
       this.$container = this._get('$container');
       this.on = this._get('on');
+      this.once = this._get('once');
       this.off = this._get('off');
       this.done = this._get('done');
       this.trigger = this._get('trigger');
@@ -1854,6 +1807,20 @@
     }
 
     createClass(Jotted, [{
+      key: 'destroy',
+      value: function destroy() {
+        for (var name in this.plugins) {
+          var _plugin = this.plugins[name];
+
+          if (typeof _plugin.destroy === 'function') {
+            _plugin.destroy();
+          }
+        }
+
+        this._get('pubsoup').unsubscribeAll();
+        this.$container.parentNode.removeChild(this.$container);
+      }
+    }, {
       key: 'findFile',
       value: function findFile(type) {
         var file = {};
@@ -1958,6 +1925,19 @@
         this.trigger('change', { type: type, content: content });
       }
     }, {
+      key: 'loadFiles',
+      value: function loadFiles() {
+        var _this3 = this;
+
+        var files = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+
+        files.forEach(function (_ref) {
+          var type = _ref.type;
+          var content = _ref.content;
+          return _this3.updateValue(type, content);
+        });
+      }
+    }, {
       key: 'change',
       value: function change(e) {
         var type = data(e.target, 'jotted-type');
@@ -2006,9 +1986,9 @@
     }, {
       key: 'status',
       value: function status() {
-        var statusType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'error';
-        var messages = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-        var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        var statusType = arguments.length <= 0 || arguments[0] === undefined ? 'error' : arguments[0];
+        var messages = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+        var params = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
         if (!messages.length) {
           return this.clearStatus(statusType, params);
@@ -2064,10 +2044,10 @@
         return function (topic) {
           var _arguments = arguments;
 
-          var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+          var _ref2 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-          var _ref$type = _ref.type;
-          var type = _ref$type === undefined ? 'default' : _ref$type;
+          var _ref2$type = _ref2.type;
+          var type = _ref2$type === undefined ? 'default' : _ref2$type;
 
           if (cooldown[type]) {
             // if we had multiple calls before the cooldown
@@ -2118,5 +2098,4 @@
   return Jotted;
 
 })));
-
 //# sourceMappingURL=jotted.js.map
